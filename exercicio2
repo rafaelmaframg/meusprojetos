@@ -1,0 +1,4 @@
+texto = ''
+
+texto = open('arquivo.txt',"r")
+print(texto.read().upper())
