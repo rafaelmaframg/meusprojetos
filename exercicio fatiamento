@@ -1,0 +1,6 @@
+imp = ''
+f=0
+str = 'X-DSPAM-Confidence:0.8475'
+imp = str.find(':')
+f=float(str[(imp+1):])
+print(f)
