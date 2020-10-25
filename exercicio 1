@@ -1,0 +1,16 @@
+dado = 0
+contador = 0
+soma = 0
+media = 0
+while True:
+    dado = input('Digite um numero ou digite "pronto" para parar: ')
+    if dado == 'pronto':
+        break
+    try:
+        dado = int(dado)
+        soma += dado
+        contador += 1
+    except:
+        print('Dado invalido ')
+media= soma/contador
+print('o somatorio dos numeros é igual a: {} \nO total de numeros digitados foram: {} \nE sua media é igual a: {}'.format(soma,contador,media))
