@@ -1,4 +1,17 @@
 texto = ''
+loca = 0
+cont = 0
+media = 0
+while True:
+    try:
+        texto = open(input('Digite o nome do arquivo:'),'r')
+        for line in texto:
+                if line.startswith('X-DSPAM-Confidence:'):
+                    loca = float(line[(line.find(':')+1):])
+                    media += loca
+                    cont+=1
+        break
+    except:
+        print('Arquivo não encontrado.')
 
-texto = open('arquivo.txt',"r")
-print(texto.read().upper())
+print('total de linhas: {}\nA média de confiança de spam é: {}'.format(cont,(media/cont)))
