@@ -1,0 +1,11 @@
+lista=[]
+leitura = open("romeo.txt",'r')
+for line in leitura:
+    line = line.split()
+    line.sort()
+    for palavra in line:
+        if palavra in lista: continue
+        lista.append(palavra)
+lista.sort()
+
+print(lista)
