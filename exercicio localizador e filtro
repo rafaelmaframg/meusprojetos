@@ -1,0 +1,24 @@
+cont = 0
+lista = []
+lista2 = []
+while True:
+    arquivo = input('Digite o nome do arquivo: ')
+    try:
+        leitura = open(arquivo,'r')
+        break
+    except:
+        print('não foi possivel abrir o arquivo')
+
+for linha in leitura:
+    linha = linha.split()
+    if len(linha) == 0: continue
+    if linha[0] != "From" : continue
+    print(linha[1])
+    lista.append(linha[1])
+    cont+=1
+    for email in lista:
+        if email not in lista2:
+            lista2.append(email)
+
+print('Foram contabilizados {} e-mails enviados'.format(cont))
+print('Foram contabilizados {} remetentes diferentes'.format(len(lista2)))
