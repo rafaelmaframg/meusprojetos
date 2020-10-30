@@ -1,0 +1,21 @@
+'''Exercício 5: Esse programa grava o domínio de email (ao invés do endereço) de onde a mensagem foi enviada ao invés de quem o email veio (
+i.e., o endereço completo da mensagem). No final do programa, mostre
+em tela o conteúdo do seu dicionário.
+'''
+arquivo = input('Digite o nome do arquivo: ')
+p = None
+email = dict()
+try:
+    leitura = open(arquivo, 'r')
+    for linha in leitura:
+        linha = linha.split()
+        if len(linha) == 0: continue
+        if linha[0] == 'From:':
+            p = linha[1]
+            p = p.find('@')
+            linha[1] = linha[1][p+1:]
+            email[linha[1]] = email.get(linha[1],0) +1
+
+    print(email)
+except:
+    print('Não foi possivel abrir o arquivo')
