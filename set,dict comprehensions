@@ -47,6 +47,9 @@ def funcl5(text):
 def funcl6(text):
     return { c: text.count(c) for c in set(text) }
     
+def funcl7(text):
+    return Counter(text).most_common(4)
+
 print(funcl6(text))
 
-print(funcl5(text))
+
