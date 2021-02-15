@@ -13,3 +13,28 @@ while True:
         print('Arquivo não encontrado.')
 
 print('total de linhas: {}\nA média de confiança de spam é: {}'.format(cont,(media/cont)))
+
+
+=========================================================================================================
+
+dado = 0
+contador = 0
+soma = 0
+lista = []
+while True:
+    dado = input('Digite um numero ou digite "pronto" para parar: ')
+    if dado == 'pronto':
+        break
+    try:
+        dado = int(dado)
+        lista.append(dado)
+        soma += dado
+        contador += 1
+    except:
+        print('Dado invalido ')
+
+print('''O somatorio dos numeros é igual a: {} 
+O total de numeros digitados foram: {} 
+Sua media é igual a: {}
+Seu menor valor é {}  
+E seu maior valor é {} '''.format(soma,contador,(soma/contador), min(lista), max(lista)))
