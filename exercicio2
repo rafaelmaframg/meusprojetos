@@ -38,3 +38,19 @@ O total de numeros digitados foram: {}
 Sua media é igual a: {}
 Seu menor valor é {}  
 E seu maior valor é {} '''.format(soma,contador,(soma/contador), min(lista), max(lista)))
+
+
+===============================================================
+leitura de dados
+================================================================
+lista=[]
+leitura = open("romeo.txt",'r')
+for line in leitura:
+    line = line.split()
+    line.sort()
+    for palavra in line:
+        if palavra in lista: continue
+        lista.append(palavra)
+lista.sort()
+
+print(lista)
