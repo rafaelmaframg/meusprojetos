@@ -10,7 +10,7 @@ class Conta:
         print("O Saldo do titutar {1} é de  R${0}".format(self.__saldo, self.__titular))
 
     def sacar(self,valor):
-        if (self.__saldo+self.__limite > valor):
+        if self.__saldo+self.__limite > valor:
             self.__saldo-=valor
         else:
             print("Você não tem saldo suficiente")
