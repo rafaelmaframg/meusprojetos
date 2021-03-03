@@ -1,2 +1,0 @@
-# meusprojetos
-iniciando na progamação
