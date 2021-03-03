@@ -1,21 +1,25 @@
+from collections import Counter
+import socket
+import string
+import re
+
 cont = 0
 media = 0
 while True:
     try:
-        texto = open(input('Digite o nome do arquivo:'),'r')
+        texto = open(input('Digite o nome do arquivo:'), 'r')
         for line in texto:
-                if line.startswith('X-DSPAM-Confidence:'):
-                    loca = float(line[(line.find(':')+1):])
-                    media += loca
-                    cont+=1
+            if line.startswith('X-DSPAM-Confidence:'):
+                loca = float(line[(line.find(':') + 1):])
+                media += loca
+                cont += 1
         break
     except:
         print('Arquivo não encontrado.')
 
-print('total de linhas: {}\nA média de confiança de spam é: {}'.format(cont,(media/cont)))
+print('total de linhas: {}\nA média de confiança de spam é: {}'.format(cont, (media / cont)))
 
-
-=========================================================================================================
+# ==== == == == == == == == == == == == == == == == == == == == == == == == ==
 
 dado = 0
 contador = 0
@@ -37,34 +41,32 @@ print('''O somatorio dos numeros é igual a: {}
 O total de numeros digitados foram: {} 
 Sua media é igual a: {}
 Seu menor valor é {}  
-E seu maior valor é {} '''.format(soma,contador,(soma/contador), min(lista), max(lista)))
+E seu maior valor é {} '''.format(soma, contador, (soma / contador), min(lista), max(lista)))
 
-
-===============================================================
-leitura de dados
-================================================================
-lista=[]
-leitura = open("romeo.txt",'r')
+# # == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
+# leitura de dados
+# # == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+lista = []
+leitura = open("romeo.txt", 'r')
 for line in leitura:
     line = line.split()
     line.sort()
     for palavra in line:
-        if palavra in lista: continue
+        if palavra in lista:
+            continue
         lista.append(palavra)
 lista.sort()
 
 print(lista)
 
-=========================================
+# # == == == == == == == == == == == == == == == == == == == == =
 '''Exercício 2: Escreva um programa que procure por uma linha na forma:
 Nova Revisão: 39772
 Extraia o número de cada linha usando uma expressão regular e o
 método findall(). Compute o valor médio dos números e mostre-o:'''
 
-import re
-
 file = input('Digite o nome do arquivo: ')
-file = open(file,'r')
+file = open(file, 'r')
 lista = []
 lista2 = []
 soma = 0
@@ -72,15 +74,15 @@ numeros = 0
 
 for line in file:
     line.rstrip()
-    soma = re.findall('New Revision: ([0-9.]+)',line)
+    soma = re.findall('New Revision: ([0-9.]+)', line)
     if len(soma) > 0:
         lista.append(soma)
 for valor in lista:
     for val in valor:
         lista2.append(int(val))
 
-print(sum(lista2)/len(lista2))
-========================================
+print(sum(lista2) / len(lista2))
+# # == == == == == == == == == == == == == == == == == == == ==
 '''Exercício 1: Revise um programa anterior como é pedido: Leia e analise
 as linhas com “From” e retire os endereços dessas linhas. Conte o
 número de mensagens de cada pessoa usando um dicionário. Depois de
@@ -88,19 +90,20 @@ todos os dados serem lidos, mostre a pessoa com mais envios criando
 uma lista de tuplas (contagem, email) do dicionário. Então, ordene a
 lista em ordem reversa e mostre a pessoa na primeira posição.'''
 
-arquivo = open('mbox-short.txt','r')
+arquivo = open('mbox-short.txt', 'r')
 emails = dict()
 lista = list()
 for line in arquivo:
     line = line.split()
-    if len(line) == 0: continue
+    if len(line) == 0:
+        continue
     if line[0] == 'From:':
-        emails[line[1]] = emails.get(line[1], 0) +1
+        emails[line[1]] = emails.get(line[1], 0) + 1
 lista = list(emails.items())
 lista.sort(reverse=True)
-print (lista[0])
+print(lista[0])
 
-=========================
+# == == == == == == == == == == == == =
 '''Exercício 2: Escreva um programa que categorize cada mensagem de
 e-mail de acordo com o dia em que a mensagem foi enviada. Para
 isso, procure por linhas que comecem com “From”, depois procure pela
@@ -116,114 +119,124 @@ Enter a file name: mbox-short.txt
 
 try:
     arquivo = input('Digite o nome do arquivo: ')
-    leitura = open(arquivo,'r')
+    leitura = open(arquivo, 'r')
     dias = dict()
     for line in leitura:
         line = line.split()
-        if len(line) == 0: continue
+        if len(line) == 0:
+            continue
         if line[0] == 'From':
-            dias[line[2]] = dias.get(line[2],0) + 1
+            dias[line[2]] = dias.get(line[2], 0) + 1
     print(dias)
 
 except:
     print('Não foi possivel abrir o arquivo')
     exit()
 
-============================================================================
+# == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 '''Exercício 1: Escreva um programa simples para simular a operação do
 comando grep em Unix. Peça ao usuário para entrar com uma expressão
 regular e conte o número de linhas que se igualam à expressão digitada:'''
 
-import re
 resultado = None
 cont = 0
 
 arquivo = input('Digite o arquivo desejeado: ')
 expr = input('Digite a Expressão a ser procurada: ')
-leitura = open(arquivo,'r')
+leitura = open(arquivo, 'r')
 for line in leitura:
     line = line.rstrip()
     resultado = re.findall(expr, line)
     if len(resultado) > 0:
-        cont +=1
-print('O arquivo {} teve {} linhas que se igualam a {} '.format(arquivo,cont,expr))
+        cont += 1
+print('O arquivo {} teve {} linhas que se igualam a {} '.format(arquivo, cont, expr))
 
-==========================================================
+# == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
-Exercício 3: Escreva um programa que leia um registro de mensagens,
-construa um histograma, utilizando um dicionário, para contar quantas
-mensagens chegaram em cada endereço de email e mostre em tela o
-dicionário.
+'''Exercício 3: Escreva um programa que leia um registro
+de mensagens, construa um histograma, utilizando um dicionário, para contar 
+quantas mensagens chegaram em cada endereço de email e mostre em tela o 
+dicionário.'''
 
 arquivo = input('digite o nome do arquivo: ')
 emails = dict()
 try:
-    leitura = open(arquivo,'r')
+    leitura = open(arquivo, 'r')
     for line in leitura:
         line = line.split()
         if len(line) == 0: continue
         if line[0] == 'From:':
-            emails[line[1]] = emails.get(line[1],0) +1
+            emails[line[1]] = emails.get(line[1], 0) + 1
     print(emails)
+
 except:
     print('Não foi possivel abrir o arquivo')
-=========================
 
-with open('texto.txt','r') as t:
-    text = t.read()
+
+# == == == == == == == == == == == == =
+
 
 def funcl(text):
-    chars=[]
+    chars = []
     quantidade = []
     for c in text:
-        if not c in chars:
+        if c not in chars:
             chars.append(c)
             quantidade.append(1)
         else:
             index = chars.index(c)
-            quantidade[index] +=1
-    d={}
-    for i in range(len(chars)):
-        d[chars[i]] = quantidade[i]
-    return d
-
-def funcl2(text):
-    chars=set()
-    for c in text:
-        chars.add(c)
-    chars = list(chars)
-    quantidade = [ text.count(c) for c in chars]
-    d={}
-    for i in range(len(chars)):
-        d[chars[i]] = quantidade[i]
-    return d
-
-def funcl3(text):
-    chars = list({ c for c in text})
-    quantidade = [ text.count(c) for c in chars ]
+            quantidade[index] += 1
     d = {}
     for i in range(len(chars)):
         d[chars[i]] = quantidade[i]
-    return d   
+    return d
+
+
+def funcl2(text):
+    chars = set()
+    for c in text:
+        chars.add(c)
+    chars = list(chars)
+    quantidade = [text.count(c) for c in chars]
+    d = {}
+    for i in range(len(chars)):
+        d[chars[i]] = quantidade[i]
+    return d
+
+
+def funcl3(text):
+    chars = list({c for c in text})
+    quantidade = [text.count(c) for c in chars]
+    d = {}
+    for i in range(len(chars)):
+        d[chars[i]] = quantidade[i]
+    return d
+
 
 def funcl4(text):
-    chars = list({ c for c in text})
-    quantidade = [ (c,text.count(c)) for c in chars ]
+    chars = list({c for c in text})
+    quantidade = [(c, text.count(c)) for c in chars]
     return dict(quantidade)
+
 
 def funcl5(text):
-    quantidade = [ (c,text.count(c)) for c in set(text) ]
+    quantidade = [(c, text.count(c)) for c in set(text)]
     return dict(quantidade)
 
+
 def funcl6(text):
-    return { c: text.count(c) for c in set(text) }
-    
+    return {c: text.count(c) for c in set(text)}
+
+
 def funcl7(text):
     return Counter(text).most_common(4)
 
-print(funcl6(text))
 
-=======================
+with open('texto.txt', 'r') as t:
+    text = t.read()
+    print(funcl6(text))
+
+# == == == == == == == == == == == =
 '''Exercício 1: Altere o programa de soquete socket1.py pR pedir ao
 usuário a URL para que então possa ler qualquer página da web.Você
 pode usar split('/') para quebrar a URL em suas componentes para
@@ -232,7 +245,6 @@ chame. Adicione tratamento de erro usando try e except para lidar com
 a condição do usuário digitar uma URL formatada incorretamente ou
 uma não existente'''
 
-import socket
 usuario = input('Digite o endereço web: ')
 try:
     part = usuario.split('/')
@@ -245,19 +257,18 @@ try:
         data = mysock.recv(512)
         if len(data) < 1:
             break
-        print(data.decode(),end='')
+        print(data.decode(), end='')
 except:
     print('Url formatada incorretamente ou inexistente')
 mysock.close()
 
-=================================
-Exercício 6: Reescreva o programa que solicita o usuário uma lista de
-números e prints e imprime em tela o maior número e o menor número
-quando o usuário digitar a palavra “feito”. Escreva um programa para
+# == == == == == == == == == == == == == == == == =
+'''Exercício 6:
+Reescreva o programa que solicita o usuário uma lista de números
+e prints e imprime em tela o maior número e o menor número quando
+o usuário digitar a palavra “feito”.Escreva um programa para
 armazenar as entradas do usuário em uma lista e use as funções max()
-e min() para computar o número máximo e o mínimo depois que o laço
-for completo.
-
+e min() para computar o número máximo e o mínimo depois que o laço for completo.'''
 
 lista = []
 while True:
@@ -268,9 +279,9 @@ while True:
     except:
         print('Caractere invalido, digite um numero valido!')
     lista.append(num)
-print('Maximo: ',max(lista))
-print('Minimo: ',min(lista))
-====================================
+print('Maximo: ', max(lista))
+print('Minimo: ', min(lista))
+# == == == == == == == == == == == == == == == == == ==
 '''Esse programa conta a distribuição de horas no dia para
 cada uma das mensagens. Você pode retirar a hora da linha com “From”
 achando a string de horário e então separando ela em partes usando o
@@ -282,14 +293,15 @@ lista = list()
 leitura = open('mbox-short.txt', 'r')
 for linha in leitura:
     linha = linha.split()
-    if len(linha) == 0: continue
+    if len(linha) == 0:
+        continue
     if linha[0] == 'From':
-        hora[linha[5][:2]] = hora.get(linha[5][:2], 0) +1
+        hora[linha[5][:2]] = hora.get(linha[5][:2], 0) + 1
 lista = list(hora.items())
 lista.sort()
-for hora,quantidade in lista:
+for hora, quantidade in lista:
     print(hora, quantidade)
-    ===========================================
+    # == == == == == == == == == == == == == == == == == == == == == =
     '''Exercício 5: Escreva um programa que leia uma caixa de email, e quando
 você encontrar uma linha que comece com “De”, você vai separar a linha
 em palavras usando a função split. Nós estamos interessados em quem
@@ -307,34 +319,27 @@ lista2 = []
 while True:
     arquivo = input('Digite o nome do arquivo: ')
     try:
-        leitura = open(arquivo,'r')
+        leitura = open(arquivo, 'r')
         break
     except:
         print('não foi possivel abrir o arquivo')
 
 for linha in leitura:
     linha = linha.split()
-    if len(linha) == 0: continue
-    if linha[0] != "From" : continue
+    if len(linha) == 0 or linha[0] != "From":
+        continue
     print(linha[1])
     lista.append(linha[1])
-    cont+=1
+    cont += 1
     for email in lista:
         if email not in lista2:
             lista2.append(email)
 
 print('Foram contabilizados {} e-mails enviados'.format(cont))
 print('Foram contabilizados {} remetentes diferentes'.format(len(lista2)))
-
-==============
-imp = ''
-f=0
-str = 'X-DSPAM-Confidence:0.8475'
-imp = str.find(':')
-f=float(str[(imp+1):])
-print(f)
-============
-'''Exercício 5: Esse programa grava o domínio de email (ao invés do endereço) de onde a mensagem foi enviada ao invés de quem o email veio (
+''''============================================================================'''
+'''Exercício 5: Esse programa grava o domínio de email (ao invés do endereço) 
+de onde a mensagem foi enviada ao invés de quem o email veio (
 i.e., o endereço completo da mensagem). No final do programa, mostre
 em tela o conteúdo do seu dicionário.
 '''
@@ -345,18 +350,21 @@ try:
     leitura = open(arquivo, 'r')
     for linha in leitura:
         linha = linha.split()
-        if len(linha) == 0: continue
+        if len(linha) == 0:
+            continue
         if linha[0] == 'From:':
             p = linha[1]
             p = p.find('@')
-            linha[1] = linha[1][p+1:]
-            email[linha[1]] = email.get(linha[1],0) +1
+            linha[1] = linha[1][p + 1:]
+            email[linha[1]] = email.get(linha[1], 0) + 1
 
     print(email)
 except:
     print('Não foi possivel abrir o arquivo')
-    =================
-    '''Exercício 4: Adicione linhas de código no programa abaixo para identificar quem possui mais mensagens no arquivo. Após todo o dado ser
+    
+# == == == == == == == == =
+'''Exercício 4: Adicione linhas de código no programa abaixo para identificar
+ quem possui mais mensagens no arquivo. Após todo o dado ser
 lido e todo o dicionário ser criado, procure no dicionário, utilizando um
 laço máximo (Veja o capítulo 5: Laços máximo e mínimo), quem tem o
 maior número de mensagens e mostre em tela quantas mensagens essa
@@ -365,12 +373,13 @@ arquivo = input('digite o nome do arquivo: ')
 emails = dict()
 maior = []
 try:
-    leitura = open(arquivo,'r')
+    leitura = open(arquivo, 'r')
     for line in leitura:
         line = line.split()
-        if len(line) == 0: continue
+        if len(line) == 0:
+            continue
         if line[0] == 'From:':
-            emails[line[1]] = emails.get(line[1],0) +1
+            emails[line[1]] = emails.get(line[1], 0) + 1
             maior = emails.values()
             maior = max(maior)
     for item in emails.items():
@@ -378,8 +387,10 @@ try:
             print(item)
 except:
     print('Não foi possivel abrir o arquivo')
-    ====================
-    '''Exercício 3: Escreva um programa que leia um arquivo e mostre
+    
+    
+# == == == == == == == == == ==
+'''Exercício 3: Escreva um programa que leia um arquivo e mostre
 as letras em ordem decrescente de frequência. Seu programa deve
 converter todas as entradas para Caixa baixa e apenas contar as
 letras de a à z. Não conte espaços, dígitos, pontuações, ou qualquer
@@ -387,25 +398,26 @@ coisa que não seja uma letra do alfabeto. Encontre textos simples
 de diversas línguas diferentes e veja como a frequência de letras
 varia entre os idiomas. Compare seis resultados com as tabelas em
 https://wikipedia.org/wiki/Letter_frequencies.'''
-import string
+
 arquivo = input('Digite o nome do arquivo: ')
 leitura = open(arquivo, 'r')
 letras = dict()
 for linha in leitura:
-    linha = linha.replace(' ','')
-    linha = linha.replace('/n','')
+    linha = linha.replace(' ', '')
+    linha = linha.replace('/n', '')
     linha = linha.strip()
     linha.split()
-    linha = linha.translate(str.maketrans('','',string.punctuation))
+    linha = linha.translate(str.maketrans('', '', string.punctuation))
     linha = linha.lower()
     for palavras in linha:
         palavras.strip()
         palavras.split()
         for letra in palavras:
-            if letra in '1234567890': continue
+            if letra in '1234567890':
+                continue
             letra = letra.strip()
-            letras[letra] = letras.get(letra,0) +1
+            letras[letra] = letras.get(letra, 0) + 1
 letras = list(letras.items())
-letras.sort(key=lambda x: x[1],reverse=True) #ordenação do segundo elemento de uma tupla
+letras.sort(key=lambda x: x[1], reverse=True)  # ordenação do segundo elemento de uma tupla
 for letra, quantidade in letras:
     print(letra, quantidade)
